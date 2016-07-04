@@ -37,6 +37,7 @@ setup(
     version=find_version('django_in_request_cache', '__init__.py'),
     author='Jan Nakladal',
     author_email='mojeto1@gmail.com',
+    url='https://github.com/mojeto/django-in-request-cache',
     long_description=read('README.md'),
     setup_requires=['pytest-runner'],
     install_requires=install_requires,
