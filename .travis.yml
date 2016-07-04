@@ -5,3 +5,15 @@ python:
   - pypy
 script: python setup.py test
 sudo: false
+deploy:
+    # test pypi
+  - provider: pypi
+    distributions: sdist
+    server: https://testpypi.python.org/pypi
+    user: "mojeto"
+    password:
+      secure: "iqdpCpQD8GwhE1iOek3fLo3NRFRterIVUF/ll05DsFqTL98Zub0PO1A22/Z17uHIPJ9Aomhb6Fpe/F9nZa4bN7EGG6ca8s3lCen6TYEvRXaTtBE+LYrTVSlN87sDjDK6GHacSY/QcKzi+GQdGXaD6wPzrbR4EQuBYuyvXu+yMMg/A9OgtFeYphQBvs3Y7N8s0TGSXQxrmJCMyzjk2iPlvocVW4iKbCKHQKq5G8oWVTPQbz/HkQMjGr3HNbkOIIOAaqofw4T7fRuNH/pPJDPqf7Q5XoQ4tG0Efat0RYO/XgZ/a/AYTiZEOXoBXaE0hmvlmo7TgsAZCzY1ytgJy5qxIXn82EHWwF7EM/NMF2qHkSflm3/bqo3TybYUtrPXMHp2UFoe27ygzXr0INwBJzsV7dOhj65uLwwBk+xL0SmMyRDbY+usdLMuLd/lxV4x0bL8VpLPUecQWJRADRLwg/uKP3lqu1x0Ra3+zomyqLTIHnk54nqw7jLMgl83UuKwuIcTGrx8MpF4kXTBsmhqADwNpJFxyWznj14CaGZ4v2J4VN8WOf5IjHUE1pcFWjgkqeW5nmp9ciN7EHvcyJWwj55l+PHukE4gfU/C/hKWbMKnEGe0PogX5dZ8lbpr1Q6sW2RTr5QrjzrXDCsT4FR1MRf0ebLeteXMm5cSuKn2dX5kPDw="
+    on:
+      branch: master
+      tags: false
+      condition: $TRAVIS_PYTHON_VERSION = "2.7"
