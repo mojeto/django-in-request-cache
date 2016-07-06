@@ -1,0 +1,45 @@
+django-in-request-cache
+=======================
+
+Django cache stored in django request 
+
+.. image:: https://travis-ci.org/mojeto/django-in-request-cache.svg?branch=master
+    :target: https://travis-ci.org/mojeto/django-in-request-cache
+
+Installation
+------------
+
+.. code-block:: bash
+
+    $ pip install django-in-request-cache
+    
+Quick start
+-----------
+
+1. Add "django-in-request-cache" to your setting as as cache like this::
+
+    from django.conf.global_settings import CACHES as DEFAULT_CACHES
+    
+    CACHES = dict(
+        DEFAULT_CACHES,
+        cache_in_request={
+            'BACKEND': 'django_in_request_cache.cache.InRequestCache',
+            # 'OPTIONS': {
+            #    'CACHE_NAME': 'my_request_cache',
+            # }
+        },
+    )
+
+2. Add django-globals middleware to your settings like this::
+
+    MIDDLEWARE_CLASSES = [
+        ...,
+        'django_globals.middleware.Global',
+    ]
+
+License
+-------
+
+* `The MIT License`_
+
+.. The MIT License: LICENSE?raw=true

@@ -39,7 +39,7 @@ setup(
     author_email='mojeto1@gmail.com',
     url='https://github.com/mojeto/django-in-request-cache',
     description='Django cache stored in django request',
-    long_description=read('README.md'),
+    long_description=read('README.rst'),
     setup_requires=['pytest-runner'],
     install_requires=install_requires,
     packages=find_packages(exclude=["tests"]),
