@@ -5,7 +5,7 @@ python:
   - pypy
 script: python setup.py test
 sudo: false
-before_deploy: pip install clint
+# before_deploy: pip install clint
 deploy:
     # test pypi
   - provider: pypi
