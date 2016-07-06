@@ -42,4 +42,4 @@ License
 
 * `The MIT License`_
 
-.. _The MIT License: LICENSE?raw=true
+.. _The MIT License: https://raw.githubusercontent.com/mojeto/django-in-request-cache/master/LICENSE
