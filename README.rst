@@ -1,7 +1,7 @@
 django-in-request-cache
 =======================
 
-Django cache stored in django request 
+Django cache backend stored in django request 
 
 .. image:: https://travis-ci.org/mojeto/django-in-request-cache.svg?branch=master
     :target: https://travis-ci.org/mojeto/django-in-request-cache
@@ -16,7 +16,7 @@ Installation
 Quick start
 -----------
 
-1. Add "django-in-request-cache" to your setting as as cache like this::
+1. Add "django-in-request-cache" to your setting as cache like this::
 
     from django.conf.global_settings import CACHES as DEFAULT_CACHES
     
