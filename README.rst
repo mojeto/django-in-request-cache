@@ -42,4 +42,4 @@ License
 
 * `The MIT License`_
 
-.. The MIT License: LICENSE?raw=true
+.. _The MIT License: LICENSE?raw=true
