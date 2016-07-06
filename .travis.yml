@@ -18,3 +18,14 @@ deploy:
       branch: master
       tags: false
       condition: $TRAVIS_PYTHON_VERSION = "2.7"
+  # pypi
+  - provider: pypi
+    distributions: sdist
+    server: https://pypi.python.org/pypi
+    user: "mojeto"
+    password:
+      secure: "oueShjmhyJqDprlBsUlIYZFbhBQx+cWoe+AX/+7Y4254kiSmXbeFuxPnUbzSHwDb6KZ4igP7Jd7kn96i5i6xtDIrO/nzqNgnrQKTsbJhk8vIpL72zQhEBdbWBJBbFJKMpr6GpHYb1N7CYS7W243P80iIIz8oV1Ud9d4yHScy/9H7kdagCpMb5mT/uQSk3sDcsG5jcEnK5a8Ya7Djkzva66AP1Uas2+zigoYVyoyCC0HkXzk4njz8EGg1fZQEV6bbZhtJd8tOLAN+ikuThUtAM20aVtwl9a0klngHrVIEPli0eO8J4IvNxaHmMl8jH9cizbBn70IDmtIrt5WEvm/w+zzhbJfULQXGEBj8QXuppaRMAZeRBT6i7qsNgsYA2sseNKuc0ofo7FrevMzBfQRd6crO1ZhtO/7BaHVaucgpTcSLX9p05t+NIJGH1iHPygsK1TBY9wFfbS/7Ddp5F0JclOBNRBlGF3EC625cbhAzapmkIv9hSI91656p0zX1v5v7GkFiZk9JXKosb3v2gtxOQHA6JeKkoeUunsJslx4E1L8NigAx4RXaBbGaJnEeA17Uv09mqtNrMC2FrUyNquDE5KBhnWhCyi26XtWqPYNeLZcUkIeGvVuiGqeNKlBkiOAfVdStLCUZz+GV6DP+oGtVxOUb6qte9dySAC+g85gO4Rc="
+    on:
+      branch: master
+      tags: true
+      condition: $TRAVIS_PYTHON_VERSION = "2.7"
