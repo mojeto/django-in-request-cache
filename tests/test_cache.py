@@ -38,7 +38,7 @@ def test_cache_in_request(client):
 
 
 def test_cache_set(global_request):
-    cache = InRequestCache(params={})
+    cache = InRequestCache(location=None, params={})
     cache.set('key', 'value')
     item = getattr(global_request, cache.cache_name)[cache.cache_key('key')]
     assert isinstance(item, CacheItem)
@@ -46,7 +46,7 @@ def test_cache_set(global_request):
 
 
 def test_cache_set_timeout(global_request):
-    cache = InRequestCache(params={})
+    cache = InRequestCache(location=None, params={})
     timeout = 2
     start = time.time()
     cache.set('key', 'value', timeout=timeout)
@@ -58,7 +58,7 @@ def test_cache_set_timeout(global_request):
 
 
 def test_cache_get(global_request):
-    cache = InRequestCache(params={})
+    cache = InRequestCache(location=None, params={})
     expire_at = time.time()
     cache_data = {
         cache.cache_key('key'): CacheItem('value', expire_at),
@@ -71,7 +71,7 @@ def test_cache_get(global_request):
 
 
 def test_cache_add(global_request):
-    cache = InRequestCache(params={})
+    cache = InRequestCache(location=None, params={})
     cache_data = {
         cache.cache_key('key'): CacheItem('value', time.time() + 10)
     }
@@ -85,7 +85,7 @@ def test_cache_add(global_request):
 
 
 def test_missing_request_warning(global_request):
-    cache = InRequestCache(params={})
+    cache = InRequestCache(location=None, params={})
     delattr(d_globals, 'request')
     with warnings.catch_warnings(record=True) as w:
         # Cause all warnings to always be triggered.
@@ -99,7 +99,7 @@ def test_missing_request_warning(global_request):
 
 
 def test_cache_clear(global_request):
-    cache = InRequestCache(params={})
+    cache = InRequestCache(location=None, params={})
     in_request_cache = cache.cache
     assert in_request_cache is getattr(global_request, cache.cache_name)
     cache.clear()
@@ -109,7 +109,7 @@ def test_cache_clear(global_request):
 
 
 def test_cache_delete(global_request):
-    cache = InRequestCache(params={})
+    cache = InRequestCache(location=None, params={})
     cache_key = cache.cache_key('key')
     cache_data = {
         cache_key: CacheItem('value', time.time() + 10)
@@ -123,7 +123,7 @@ def test_cache_delete(global_request):
 def test_cache_get_backend_timeout(global_request):
     max_timeout = 2
     default_timeout = 10
-    cache = InRequestCache(params={
+    cache = InRequestCache(location=None, params={
         'MAX_TIMEOUT': max_timeout, 'TIMEOUT': default_timeout,
     })
     start = time.time()

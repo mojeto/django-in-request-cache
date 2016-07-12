@@ -20,10 +20,9 @@ class InRequestCache(BaseCache):
     cache_name = '_dinr_cache'
     max_timeout = None
 
-    def __init__(self, params):
+    def __init__(self, location, params):
         super(InRequestCache, self).__init__(params)
-        self.cache_name = params.get('cache_name', params.get('CACHE_NAME')) \
-            or self.cache_name
+        self.cache_name = location or self.cache_name
         self.max_timeout = int(
             params.get('max_timeout', params.get('MAX_TIMEOUT')) or
             self.default_timeout
