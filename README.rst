@@ -24,9 +24,8 @@ Quick start
         DEFAULT_CACHES,
         cache_in_request={
             'BACKEND': 'django_in_request_cache.cache.InRequestCache',
-            # 'OPTIONS': {
-            #    'CACHE_NAME': 'my_request_cache',
-            # }
+            # 'LOCATION': 'my_request_cache',  # request property name to store data
+            # 'OPTIONS': {},
         },
     )
 
