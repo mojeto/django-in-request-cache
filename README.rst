@@ -36,9 +36,19 @@ Quick start
         'django_globals.middleware.Global',
     ]
 
+
+Requirements
+------------
+
+* `Django`_ >= 1.6
+* `django-globals`_ >= 0.2
+
+
 License
 -------
 
 * `The MIT License`_
 
 .. _The MIT License: https://raw.githubusercontent.com/mojeto/django-in-request-cache/master/LICENSE
+.. _Django: https://github.com/django/django
+.. _django-globals: https://github.com/svetlyak40wt/django-globals

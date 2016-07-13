@@ -137,3 +137,11 @@ def test_cache_get_backend_timeout(global_request):
     end = time.time()
     assert timeout >= start + 1
     assert timeout <= end + 1
+
+
+def test_cache_without_global_request(global_request):
+    delattr(d_globals, 'request')
+    cache = InRequestCache(location=None, params={})
+    assert cache.get('key') is None
+    cache.set('key', 'value')
+    assert cache.get('key') is None
