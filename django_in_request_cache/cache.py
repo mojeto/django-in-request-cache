@@ -80,7 +80,7 @@ class InRequestCache(BaseCache):
             # ticket 21147 - avoid time.time() related precision issues
             timeout = -1
 
-        if self.max_timeout > 0:
+        if self.max_timeout is not None:
             timeout = min(timeout, self.max_timeout)
 
         return time.time() + timeout
