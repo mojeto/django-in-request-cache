@@ -154,7 +154,8 @@ class InRequestCache(BaseCache):
 
 class CacheACache(BaseCache):
     """
-    use fast (memory) cache to cache a "slower" cache
+    Intended use case is to use fast (memory) cache to cache a "slower"
+    (but cross process) cache.
     """
 
     def __init__(self, location, params):
@@ -162,9 +163,13 @@ class CacheACache(BaseCache):
         self.fast_cache_alias = params.get('fast_cache', params.get(
             'FAST_CACHE'
         ))
-        self.fast_cache_timeout = int(
-            params.get('fast_cache_timeout', params.get('FAST_CACHE_TIMEOUT'))
-        ) or 30
+        try:
+            self.fast_cache_timeout = int(params.get(
+                'fast_cache_max_timeout', params.get('FAST_CACHE_MAX_TIMEOUT')
+            ))
+        except (ValueError, TypeError):
+            self.fast_cache_timeout = 30
+
         self.cache_alias = params.get('cache_to_cache', params.get(
             'CACHE_TO_CACHE'
         ))
@@ -236,15 +241,15 @@ class CacheACache(BaseCache):
         """
         Delete a key from the cache, failing silently.
         """
-        self.fast_cache.delete(key, version=version)
         self.cache.delete(key, version=version)
+        self.fast_cache.delete(key, version=version)
 
     def clear(self):
         """
         Remove *all* values from the cache at once.
         """
-        self.fast_cache.clear()
         self.cache.clear()
+        self.fast_cache.clear()
 
     def add(self, key, value, timeout=DEFAULT_TIMEOUT, version=None):
         """
@@ -254,6 +259,9 @@ class CacheACache(BaseCache):
 
         Returns True if the value was stored, False otherwise.
         """
+        if timeout == DEFAULT_TIMEOUT:
+            timeout = self.default_timeout
+
         if self.cache.add(key, value, timeout, version):
             self.fast_cache_set(key, value, timeout, version)
             return True
