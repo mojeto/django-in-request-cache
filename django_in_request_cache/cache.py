@@ -24,10 +24,9 @@ class InRequestCache(BaseCache):
     def __init__(self, location, params):
         super(InRequestCache, self).__init__(params)
         self.cache_name = location or self.cache_name
-        self.max_timeout = int(
-            params.get('max_timeout', params.get('MAX_TIMEOUT')) or
-            self.default_timeout
-        )
+        self.max_timeout = params.get('max_timeout', params.get('MAX_TIMEOUT'))
+        if self.max_timeout is not None:
+            self.max_timeout = int(self.max_timeout)
 
     @property
     def request(self):
@@ -76,10 +75,14 @@ class InRequestCache(BaseCache):
         """
         if timeout == DEFAULT_TIMEOUT:
             timeout = self.default_timeout
+
         elif timeout <= 0:
             # ticket 21147 - avoid time.time() related precision issues
-            timeout = self.max_timeout
-        timeout = min(timeout, self.max_timeout)
+            timeout = -1
+
+        if self.max_timeout > 0:
+            timeout = min(timeout, self.max_timeout)
+
         return time.time() + timeout
 
     def cache_key(self, key, version=None):
@@ -163,12 +166,14 @@ class CacheACache(BaseCache):
         self.fast_cache_alias = params.get('fast_cache', params.get(
             'FAST_CACHE'
         ))
-        try:
-            self.fast_cache_timeout = int(params.get(
-                'fast_cache_max_timeout', params.get('FAST_CACHE_MAX_TIMEOUT')
-            ))
-        except (ValueError, TypeError):
+        self.fast_cache_timeout = params.get(
+            'fast_cache_max_timeout', params.get('FAST_CACHE_MAX_TIMEOUT')
+        )
+        if self.fast_cache_timeout is None:
             self.fast_cache_timeout = 30
+
+        else:
+            self.fast_cache_timeout = int(self.fast_cache_timeout)
 
         self.cache_alias = params.get('cache_to_cache', params.get(
             'CACHE_TO_CACHE'
