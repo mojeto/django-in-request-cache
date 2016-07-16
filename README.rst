@@ -24,8 +24,11 @@ Quick start
         DEFAULT_CACHES,
         cache_in_request={
             'BACKEND': 'django_in_request_cache.cache.InRequestCache',
-            # 'LOCATION': 'my_request_cache',  # request property name to store data
-            # 'OPTIONS': {},
+            # 'LOCATION': '_dinr_cache',  # request property name to store data
+            # 'OPTIONS': {
+            #     # if set then no value is stored for more than MAX_TIME time.
+            #     'MAX_TIMEOUT': 10,  # in seconds,
+            # },
         },
     )
 
@@ -36,6 +39,33 @@ Quick start
         'django_globals.middleware.Global',
     ]
 
+
+Configuration
+-------------
+
+* How to cache a slower but cross process cache backend::
+
+    from django.conf.global_settings import CACHES as DEFAULT_CACHES
+
+    CACHES = dict(
+        DEFAULT_CACHES,
+        redis_cache = {
+            'BACKEND: 'redis_cache.RedisCache',
+            ...
+        },
+        cache_in_request={
+            'BACKEND': 'django_in_request_cache.cache.InRequestCache',
+            'LOCATION': '_redis_cache_mirror',  # request property name
+        },
+        combined_in_request_and_redis_cache={
+            'BACKEND': 'django_in_request_cache.cache.CacheACache',
+            'OPTIONS: {
+                'FAST_CACHE': 'cache_in_request',  # cache alias
+                'FAST_CACHE_MAX_TIMEOUT': 5,  # in seconds
+                'CACHE_TO_CACHE': 'redis_cache',  # cache alias
+            },
+        },
+    )
 
 Requirements
 ------------
