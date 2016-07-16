@@ -12,6 +12,7 @@ import pytest
 from django.core.cache import caches
 from django.core.cache.backends.base import BaseCache, DEFAULT_TIMEOUT, \
     InvalidCacheBackendError
+from django.utils.six import text_type
 
 from django_in_request_cache.cache import CacheACache
 
@@ -146,11 +147,11 @@ def test_wrong_cache_property():
     cache = get_cache(fast_cache='wrong_cache', cache_to_cache='bad_cache')
     with pytest.raises(InvalidCacheBackendError) as exc_info:
         cache_to_cache = cache.cache
-    assert 'bad_cache' in exc_info.value.message
+    assert 'bad_cache' in text_type(exc_info.value)
 
     with pytest.raises(InvalidCacheBackendError) as exc_info:
         fast_cache = cache.fast_cache
-    assert 'wrong_cache' in exc_info.value.message
+    assert 'wrong_cache' in text_type(exc_info.value)
 
 
 def test_fast_cache_set(fast_cache):
