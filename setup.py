@@ -38,6 +38,7 @@ setup(
     author='Jan Nakladal',
     author_email='mojeto1@gmail.com',
     url='https://github.com/mojeto/django-in-request-cache',
+    license='MIT',
     description='Django cache backend stored in django request',
     long_description=read('README.rst'),
     setup_requires=['pytest-runner'],

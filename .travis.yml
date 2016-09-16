@@ -11,7 +11,7 @@ sudo: false
 deploy:
     # test pypi
   - provider: pypi
-    distributions: sdist
+    distributions: sdist bdist_wheel
     server: https://testpypi.python.org/pypi
     user: "mojeto"
     password:
@@ -22,7 +22,7 @@ deploy:
       condition: $TRAVIS_PYTHON_VERSION = "2.7"
   # pypi
   - provider: pypi
-    distributions: sdist
+    distributions: sdist bdist_wheel
     server: https://pypi.python.org/pypi
     user: "mojeto"
     password:
