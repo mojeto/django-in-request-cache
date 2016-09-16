@@ -3,11 +3,14 @@ django-in-request-cache
 
 Django cache backend stored in django request 
 
-.. image:: https://travis-ci.org/mojeto/django-in-request-cache.svg?branch=master
+.. image:: https://travis-ci.org/mojeto/django-in-request-cache.svg?branch=master&maxAge=259200
     :target: https://travis-ci.org/mojeto/django-in-request-cache
 
-.. image:: https://img.shields.io/pypi/v/django-in-request-cache.svg
+.. image:: https://img.shields.io/pypi/v/django-in-request-cache.svg?maxAge=259200
     :target: https://pypi.python.org/pypi/django-in-request-cache
+
+.. image:: https://img.shields.io/pypi/l/django-in-request-cache.svg?maxAge=2592000
+    :target: https://raw.githubusercontent.com/mojeto/django-in-request-cache/master/LICENSE
 
 Installation
 ------------
