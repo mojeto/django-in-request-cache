@@ -16,6 +16,11 @@ from django_globals.middleware import Global, globals as d_globals
 from django_in_request_cache.cache import InRequestCache, CacheItem
 
 
+###############################################################################
+#  Test Fixtures
+###############################################################################
+
+
 class MockRequest(object):
     """
     Mock django request object for testing purpose
@@ -27,6 +32,11 @@ def global_request():
     request = MockRequest()
     Global().process_request(request)
     return request
+
+
+###############################################################################
+#  Test InRequestCache
+###############################################################################
 
 
 def test_global_request_fixture(global_request):

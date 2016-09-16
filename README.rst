@@ -13,6 +13,19 @@ Installation
 
     $ pip install django-in-request-cache
     
+Fast InRequestCache
+-------------------
+
+InRequestCache is implementation of django cache interface.
+It uses instance of python dict assigned to each django request object to store cached values.
+`django-globals`_ is used to make request object accessible everywhere.
+This cache has the same limitations as standard django InMemory cache - Cross process access isn't possible.
+InRequestCache goes one step further and makes cross thread access impossible.
+InRequestCache is different in each request.
+InRequestCache should be faster than InMemory cache, because there is no read/write lock.
+It makes sense to use InRequestCache for values which will be accessible multiple times in the same request.
+Cache invalidation is hard, but because cache lives for request period only it isn't a big problem.
+
 Quick start
 -----------
 
@@ -24,8 +37,11 @@ Quick start
         DEFAULT_CACHES,
         cache_in_request={
             'BACKEND': 'django_in_request_cache.cache.InRequestCache',
-            # 'LOCATION': 'my_request_cache',  # request property name to store data
-            # 'OPTIONS': {},
+            # 'LOCATION': '_dinr_cache',  # request property name to store data
+            # 'OPTIONS': {
+            #     # if set then no value is stored for more than MAX_TIME time.
+            #     'MAX_TIMEOUT': 10,  # in seconds,
+            # },
         },
     )
 
@@ -36,6 +52,46 @@ Quick start
         'django_globals.middleware.Global',
     ]
 
+
+Speed up slower cache with faster cache
+---------------------------------------
+
+Why do we want to cache a cache?
+In my case I have one value in redis cache, which was accessed 20 times during the same django request.
+Every read from redis takes ~1ms, it makes ~20ms just read the same value 20 times.
+To speed it up I want cache my value in faster cache (InRequestCache, InMemoryCache etc.)
+CacheACache class is implementation of django cache interface which allows read value from slower cache
+only once and 'cache' it again in faster in memory cache.
+Most of the time faster cache is back populated from slower cache. In this case we doesn't have information whe value expire.
+In that case cache max expiration time for cached value is value expire time + slow cache expiration time.
+Therefore fast cache expiration time **should be set very low** (in number of seconds).
+
+CacheACache configuration
+-------------------------
+
+* How to cache a slower but cross process cache backend::
+
+    from django.conf.global_settings import CACHES as DEFAULT_CACHES
+
+    CACHES = dict(
+        DEFAULT_CACHES,
+        redis_cache = {
+            'BACKEND: 'redis_cache.RedisCache',
+            ...
+        },
+        cache_in_request={
+            'BACKEND': 'django_in_request_cache.cache.InRequestCache',
+            'LOCATION': '_redis_cache_mirror',  # request property name
+        },
+        combined_in_request_and_redis_cache={
+            'BACKEND': 'django_in_request_cache.cache.CacheACache',
+            'OPTIONS: {
+                'FAST_CACHE': 'cache_in_request',  # cache alias
+                'FAST_CACHE_MAX_TIMEOUT': 5,  # in seconds
+                'CACHE_TO_CACHE': 'redis_cache',  # cache alias
+            },
+        },
+    )
 
 Requirements
 ------------
