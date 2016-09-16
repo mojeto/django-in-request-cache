@@ -5,4 +5,4 @@
 
 from __future__ import unicode_literals, absolute_import
 
-__version__ = '0.0.4'
+__version__ = '0.0.5'
