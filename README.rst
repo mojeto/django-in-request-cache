@@ -6,6 +6,9 @@ Django cache backend stored in django request
 .. image:: https://travis-ci.org/mojeto/django-in-request-cache.svg?branch=master
     :target: https://travis-ci.org/mojeto/django-in-request-cache
 
+.. image:: https://img.shields.io/pypi/v/django-in-request-cache.svg
+    :target: https://pypi.python.org/pypi/django-in-request-cache
+
 Installation
 ------------
 
