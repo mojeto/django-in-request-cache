@@ -57,14 +57,14 @@ Speed up slower cache with faster cache
 ---------------------------------------
 
 Why do we want to cache a cache?
-In my case a I have one value in redis cache, which was accessed 20 times during the same django request.
+In my case I have one value in redis cache, which was accessed 20 times during the same django request.
 Every read from redis takes ~1ms, it makes ~20ms just read the same value 20 times.
 To speed it up I want cache my value in faster cache (InRequestCache, InMemoryCache etc.)
 CacheACache class is implementation of django cache interface which allows read value from slower cache
 only once and 'cache' it again in faster in memory cache.
 Most of the time faster cache is back populated from slower cache. In this case we doesn't have information whe value expire.
 In that case cache max expiration time for cached value is value expire time + slow cache expiration time.
-Therefor fast cache expiration time **should be set very low** (in number of seconds).
+Therefore fast cache expiration time **should be set very low** (in number of seconds).
 
 CacheACache configuration
 -------------------------
