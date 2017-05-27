@@ -102,7 +102,7 @@ CacheACache configuration
 Requirements
 ------------
 
-* `Django`_ >= 1.6
+* `Django`_ >= 1.8
 * `django-globals`_ >= 0.2
 
 
