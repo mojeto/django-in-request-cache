@@ -1,7 +1,7 @@
 django-in-request-cache
 =======================
 
-Django cache backend stored in django request 
+Django cache backend stored in django request
 
 .. image:: https://travis-ci.org/mojeto/django-in-request-cache.svg?branch=master&maxAge=259200
     :target: https://travis-ci.org/mojeto/django-in-request-cache
@@ -18,7 +18,7 @@ Installation
 .. code-block:: bash
 
     $ pip install django-in-request-cache
-    
+
 Fast InRequestCache
 -------------------
 
@@ -38,7 +38,7 @@ Quick start
 1. Add "django-in-request-cache" to your setting as cache like this::
 
     from django.conf.global_settings import CACHES as DEFAULT_CACHES
-    
+
     CACHES = dict(
         DEFAULT_CACHES,
         cache_in_request={
