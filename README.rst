@@ -53,7 +53,7 @@ Quick start
 
 2. Add django-globals middleware to your settings like this::
 
-    MIDDLEWARE_CLASSES = [
+    MIDDLEWARE = [
         ...,
         'django_globals.middleware.Global',
     ]
@@ -102,8 +102,8 @@ CacheACache configuration
 Requirements
 ------------
 
-* `Django`_ >= 1.8
-* `django-globals`_ >= 0.2
+* `Django`_ >= 1.11
+* `django-globals`_ >= 0.3.2
 
 
 License
