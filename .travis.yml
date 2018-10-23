@@ -1,33 +1,48 @@
-language: python
-python:
-  - 2.7
-  - 3.5
-  - pypy
-before_install:
-  - pip install --upgrade pytest
-script: python setup.py test
 sudo: false
-# before_deploy: pip install clint
-deploy:
-    # test pypi
-  - provider: pypi
-    distributions: sdist bdist_wheel
-    server: https://testpypi.python.org/pypi
-    user: "mojeto"
-    password:
-      secure: "oueShjmhyJqDprlBsUlIYZFbhBQx+cWoe+AX/+7Y4254kiSmXbeFuxPnUbzSHwDb6KZ4igP7Jd7kn96i5i6xtDIrO/nzqNgnrQKTsbJhk8vIpL72zQhEBdbWBJBbFJKMpr6GpHYb1N7CYS7W243P80iIIz8oV1Ud9d4yHScy/9H7kdagCpMb5mT/uQSk3sDcsG5jcEnK5a8Ya7Djkzva66AP1Uas2+zigoYVyoyCC0HkXzk4njz8EGg1fZQEV6bbZhtJd8tOLAN+ikuThUtAM20aVtwl9a0klngHrVIEPli0eO8J4IvNxaHmMl8jH9cizbBn70IDmtIrt5WEvm/w+zzhbJfULQXGEBj8QXuppaRMAZeRBT6i7qsNgsYA2sseNKuc0ofo7FrevMzBfQRd6crO1ZhtO/7BaHVaucgpTcSLX9p05t+NIJGH1iHPygsK1TBY9wFfbS/7Ddp5F0JclOBNRBlGF3EC625cbhAzapmkIv9hSI91656p0zX1v5v7GkFiZk9JXKosb3v2gtxOQHA6JeKkoeUunsJslx4E1L8NigAx4RXaBbGaJnEeA17Uv09mqtNrMC2FrUyNquDE5KBhnWhCyi26XtWqPYNeLZcUkIeGvVuiGqeNKlBkiOAfVdStLCUZz+GV6DP+oGtVxOUb6qte9dySAC+g85gO4Rc="
-    on:
-      branch: master
-      tags: false
-      condition: $TRAVIS_PYTHON_VERSION = "2.7"
-  # pypi
-  - provider: pypi
-    distributions: sdist bdist_wheel
-    server: https://pypi.python.org/pypi
-    user: "mojeto"
-    password:
-      secure: "oueShjmhyJqDprlBsUlIYZFbhBQx+cWoe+AX/+7Y4254kiSmXbeFuxPnUbzSHwDb6KZ4igP7Jd7kn96i5i6xtDIrO/nzqNgnrQKTsbJhk8vIpL72zQhEBdbWBJBbFJKMpr6GpHYb1N7CYS7W243P80iIIz8oV1Ud9d4yHScy/9H7kdagCpMb5mT/uQSk3sDcsG5jcEnK5a8Ya7Djkzva66AP1Uas2+zigoYVyoyCC0HkXzk4njz8EGg1fZQEV6bbZhtJd8tOLAN+ikuThUtAM20aVtwl9a0klngHrVIEPli0eO8J4IvNxaHmMl8jH9cizbBn70IDmtIrt5WEvm/w+zzhbJfULQXGEBj8QXuppaRMAZeRBT6i7qsNgsYA2sseNKuc0ofo7FrevMzBfQRd6crO1ZhtO/7BaHVaucgpTcSLX9p05t+NIJGH1iHPygsK1TBY9wFfbS/7Ddp5F0JclOBNRBlGF3EC625cbhAzapmkIv9hSI91656p0zX1v5v7GkFiZk9JXKosb3v2gtxOQHA6JeKkoeUunsJslx4E1L8NigAx4RXaBbGaJnEeA17Uv09mqtNrMC2FrUyNquDE5KBhnWhCyi26XtWqPYNeLZcUkIeGvVuiGqeNKlBkiOAfVdStLCUZz+GV6DP+oGtVxOUb6qte9dySAC+g85gO4Rc="
-    on:
-      branch: master
-      tags: true
-      condition: $TRAVIS_PYTHON_VERSION = "2.7"
+language: python
+cache: pip
+
+matrix:
+  include:
+    - python: 2.7
+      env: DJANGO="Django>=1.8,<1.9"
+    - python: 3.3
+      env: DJANGO="Django>=1.8,<1.9"
+    - python: 3.4
+      env: DJANGO="Django>=1.8,<1.9"
+    - python: 3.5
+      env: DJANGO="Django>=1.8,<1.9"
+    - python: pypy
+      env: DJANGO="Django>=1.8,<1.9"
+    - python: 2.7
+      env: DJANGO="Django>=1.9,<1.10"
+    - python: 3.4
+      env: DJANGO="Django>=1.9,<1.10"
+    - python: 3.5
+      env: DJANGO="Django>=1.9,<1.10"
+    - python: pypy
+      env: DJANGO="Django>=1.9,<1.10"
+    - python: 2.7
+      env: DJANGO="Django>=1.10,<1.11"
+    - python: 3.4
+      env: DJANGO="Django>=1.10,<1.11"
+    - python: 3.5
+      env: DJANGO="Django>=1.10,<1.11"
+    - python: pypy
+      env: DJANGO="Django>=1.10,<1.11"
+    - python: 2.7
+      env: DJANGO="Django>=1.11,<2.0"
+    - python: 3.4
+      env: DJANGO="Django>=1.11,<2.0"
+    - python: 3.5
+      env: DJANGO="Django>=1.11,<2.0"
+    - python: 3.6
+      env: DJANGO="Django>=1.11,<2.0"
+    - python: pypy
+      env: DJANGO="Django>=1.11,<2.0"
+
+install:
+  - pip install --upgrade pytest
+  - pip install $DJANGO
+
+script: python setup.py test
