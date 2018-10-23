@@ -44,6 +44,7 @@ matrix:
       env: DJANGO="Django>=2.1,<2.2"
 
 install:
+  - pip install --upgrade pip
   - pip install --upgrade pytest
   - pip install $DJANGO
 
