@@ -46,7 +46,7 @@ setup(
     packages=find_packages(exclude=["tests"]),
     include_package_data=True,
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 4 - Beta",
         "Environment :: Web Environment",
         "Framework :: Django",
         "Framework :: Django :: 1.11",
