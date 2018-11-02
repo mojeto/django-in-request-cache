@@ -61,7 +61,6 @@ deploy:
     on:
       branch: master
       tags: false
-      condition: $TRAVIS_PYTHON_VERSION = "3.6" AND $DJANGO = "Django>=1.11,<2.0"
   # pypi
   - provider: pypi
     distributions: sdist bdist_wheel
